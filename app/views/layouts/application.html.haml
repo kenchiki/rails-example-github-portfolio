@@ -14,10 +14,12 @@
           = link_to 'GitHubフォリオ', root_path
         %ul#header-nav
           - if user_signed_in?
+            %li= link_to '作品一覧', auth_works_path
+            %li= link_to '公開ページ', user_path(current_user)
             %li= link_to 'プロフィール編集', edit_auth_profile_path
             %li= link_to 'ログアウト', destroy_user_session_path, method: :delete
           - else
             %li= link_to 'ログイン', new_user_session_path
-      #container
+      #container.mt-5
         = render 'application/flash'
         = yield

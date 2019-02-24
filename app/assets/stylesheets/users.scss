@@ -1,0 +1,46 @@
+.strong {
+  font-weight: bold;
+  color: #E57165;
+}
+
+.works {
+  margin-top: 30px;
+  @include breakpoint-pc {
+    @include grid($x: 20, $y: 20, $n: 4);
+  }
+  @include breakpoint-sp {
+    @include grid($x: 20, $y: 20, $n: 2);
+  }
+
+  &__work {
+    border-radius: 5px;
+    background: #fff;
+    padding: 15px;
+    box-shadow: 0px 0px 6px -3px rgba(#000000, .5);
+  }
+  &__img {
+    img {
+      width: 100%;
+    }
+  }
+  &__detail {
+    margin-top: 10px;
+
+  }
+  &__control {
+    margin-top: 10px;
+    font-size: 1.1rem;
+    .btn {
+      font-size: 1.1rem;
+      margin-right: 5px;
+    }
+  }
+  &__crud, &__sort {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+  }
+  &__sort {
+    margin-top: 5px;
+  }
+}

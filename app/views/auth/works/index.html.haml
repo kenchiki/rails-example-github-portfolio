@@ -1,0 +1,23 @@
+%h1 作品一覧
+
+%table.table.table-striped.table-bordered.mt-5
+  %thead
+    %tr
+      %th ID
+      %th 作品名
+      %th 紹介コメント
+      %th GitHub URL
+      %th
+      %th
+  %tbody
+    - @works.each do |work|
+      %tr
+        %td= work.id
+        %td= work.name
+        %td= work.description
+        %td= link_to '外部リンク', work.svn_url, target: '_blank', class: 'btn btn-secondary'
+        %td= link_to '詳細', [:auth, work], class: 'btn btn-secondary'
+        %td= link_to '変更', edit_auth_work_path(work), class: 'btn btn-primary'
+
+%p.mt-5
+  = link_to 'Githubからリポジトリ読み込み', import_auth_works_path, method: :post, class: 'btn btn-danger', data: { confirm: 'GitHubから削除されたリポジトリは一覧から削除されますがよろしいですか？' }

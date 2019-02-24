@@ -1,0 +1,14 @@
+%h1= "作者：#{@user.name}"
+
+.mt-5= simple_format(@user.pr)
+
+%ul.works
+  - @user.works.each do |work|
+    %li.works__work
+      -#%p.works__img
+      -#  = link_to new_product_cart_product_path(product) do
+      -#    = image_tag product.image.thumb.url if product.image?
+      -#    = image_tag 'no_image.png' unless product.image?
+      %div.works__detail
+        %p.strong= work.name
+        %p= work.description if work.description?

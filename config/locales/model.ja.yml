@@ -1,0 +1,10 @@
+---
+ja:
+  activerecord:
+    attributes:
+      profile:
+        name: 名前
+        pr: PRコメント
+      work:
+        name: 作品名
+        description: PRコメント
