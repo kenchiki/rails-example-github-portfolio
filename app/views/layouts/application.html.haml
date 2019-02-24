@@ -10,6 +10,13 @@
   %body
     #wrapper
       %header#header
+        #header-logo
+          = link_to 'ポートフォリオ', root_path
+        %ul#header-nav
+          - if user_signed_in?
+            %li= link_to 'ログアウト', destroy_user_session_path, method: :delete
+          - else
+            %li= link_to 'ログイン', new_user_session_path
       #container
         = render 'application/flash'
         = yield
