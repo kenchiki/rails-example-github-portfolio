@@ -15,7 +15,7 @@ module Auth
     private
 
     def profile_params
-      params.require(:profile).permit(:name, :pr)
+      params.require(:profile).permit(:name, :pr, :avatar, :remove_avatar, :avatar_cache)
     end
   end
 end

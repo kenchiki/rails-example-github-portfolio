@@ -8,7 +8,7 @@ class User < ApplicationRecord
 
   delegate :token, to: :omni_auth_token
   delegate :repositories, to: :github_account
-  delegate :name, :pr, :pr?, to: :profile
+  delegate :name, :pr, :pr?, :avatar, :avatar?, to: :profile
 
   def published_works
     works.published

@@ -5,9 +5,11 @@ ja:
       profile:
         name: 名前
         pr: PRコメント
-      work:
+        avatar: 写真
+        remove_avatar: 写真を削除
+    work:
         name: 作品名
         description: 作品紹介
         image: 作品イメージ
+        remove_image: 作品イメージを削除
         published: 公開状態
-        remove_image: 画像を削除

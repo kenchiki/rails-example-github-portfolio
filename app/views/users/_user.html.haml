@@ -1,8 +1,8 @@
 %li.users__card
   %p.users__img
-    -#= link_to user_path(user) do
-    -#  = image_tag user.image.thumb.url if user.image?
-    -#  = image_tag 'no_image.png' unless user.image?
+    = link_to user_path(user) do
+      = image_tag user.avatar.thumb.url if user.avatar?
+      = image_tag 'no_image.png' unless user.avatar?
   %div.users__detail
     = link_to user_path(user) do
       %p.strong= user.name

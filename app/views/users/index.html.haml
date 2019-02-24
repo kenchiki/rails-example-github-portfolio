@@ -1,7 +1,10 @@
 %h1 登録ユーザー一覧
-%ul.users
-  = render @users
 
-%h2.mt-5 作品一覧
-%ul.works
-  = render @works
+- if @users.present?
+  %ul.users
+    = render @users
+
+- if @works.present?
+  %h2.mt-5 作品一覧
+  %ul.works
+    = render @works

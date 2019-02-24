@@ -6,12 +6,13 @@
   .form-inputs
     = f.input :name
     = f.input :description
-    = f.input :image, input_html: { class: 'form-control-file' }
 
+    = f.input :image, input_html: { class: 'form-control-file' }
     = f.hidden_field :image_cache
     - if f.object.image?
       %p= image_tag f.object.image.url
       = f.input :remove_image, as: :boolean, label_html: { class: 'form-check-label' },input_html: { class: 'form-check-input is-valid boolean optional' }
+
     = f.input :published, label_html: { class: 'form-check-label' }
 
   .form-actions
