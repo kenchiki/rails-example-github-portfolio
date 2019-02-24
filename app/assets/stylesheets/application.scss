@@ -4,6 +4,7 @@
 @import "module/module";
 
 @import "users";
+@import "works";
 
 #wrapper {
   @include container();
@@ -36,4 +37,13 @@
 
 #container {
   padding-bottom: 50px;
+}
+
+.strong {
+  font-weight: bold;
+  color: #E57165;
+}
+
+textarea.form-control {
+  height: 10em;
 }

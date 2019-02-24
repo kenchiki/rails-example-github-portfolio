@@ -7,4 +7,7 @@ ja:
         pr: PRコメント
       work:
         name: 作品名
-        description: PRコメント
+        description: 作品紹介
+        image: 作品イメージ
+        published: 公開状態
+        remove_image: 画像を削除

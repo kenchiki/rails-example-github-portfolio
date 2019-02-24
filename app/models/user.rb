@@ -4,11 +4,15 @@ class User < ApplicationRecord
 
   has_one :profile, dependent: :destroy
   has_one :omni_auth_token, dependent: :destroy
-  has_many :works, dependent: :destroy
+  has_many :works, -> { order(id: :asc) }, dependent: :destroy
 
   delegate :token, to: :omni_auth_token
   delegate :repositories, to: :github_account
-  delegate :name, :pr, to: :profile
+  delegate :name, :pr, :pr?, to: :profile
+
+  def published_works
+    works.published
+  end
 
   def import_works_from_github
     Work.transaction do
@@ -19,6 +23,7 @@ class User < ApplicationRecord
       end
     end
   end
+
 
   def self.from_omniauth(auth)
     user = where(provider: auth.provider, uid: auth.uid).first_or_create do |user|

@@ -1,0 +1,10 @@
+%li.works__card
+  %p.works__img
+    = link_to work.svn_url do
+      = image_tag work.image.thumb.url if work.image?
+      = image_tag 'no_image.png' unless work.image?
+  %div.works__detail
+    = link_to work.svn_url do
+      %p.strong= work.name
+    %p.badge.badge-info= work.language if work.language?
+    %p= work.description if work.description?

@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 2019_02_24_052829) do
 
   create_table "works", force: :cascade do |t|
     t.string "name"
+    t.string "image"
     t.text "description"
     t.integer "repository_id", null: false
     t.string "language"
@@ -61,6 +62,7 @@ ActiveRecord::Schema.define(version: 2019_02_24_052829) do
     t.integer "forks", null: false
     t.integer "watchers", null: false
     t.bigint "user_id", null: false
+    t.boolean "published", default: true, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["repository_id"], name: "index_works_on_repository_id", unique: true

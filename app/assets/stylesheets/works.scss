@@ -1,7 +1,7 @@
-.users {
+.works {
   margin-top: 30px;
   @include breakpoint-pc {
-    @include grid($x: 20, $y: 20, $n: 3);
+    @include grid($x: 20, $y: 20, $n: 4);
   }
   @include breakpoint-sp {
     @include grid($x: 20, $y: 20, $n: 2);

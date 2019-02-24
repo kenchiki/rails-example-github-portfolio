@@ -19,7 +19,7 @@ module Auth
 
     def update
       if @work.update(work_params)
-        redirect_to [:auth, @work], notice: '作品を更新しました。'
+        redirect_to edit_auth_work_path(@work), notice: '作品を更新しました。'
       else
         render :edit
       end
@@ -32,7 +32,7 @@ module Auth
     end
 
     def work_params
-      params.require(:work).permit(:name, :description)
+      params.require(:work).permit(:name, :description, :image, :remove_image, :image_cache, :published)
     end
   end
 end

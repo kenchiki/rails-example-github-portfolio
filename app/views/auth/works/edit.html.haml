@@ -1,7 +1,7 @@
 %h1 作品変更
 
-= render 'form'
+.mt-5
+  = render 'form'
 
 %p.mt-5
-  = link_to '作品詳細', [:auth, @work], class: 'btn btn-secondary'
   = link_to '作品一覧', auth_works_path, class: 'btn btn-secondary'

@@ -1,6 +1,10 @@
 class Work < ApplicationRecord
   belongs_to :user
 
+  mount_uploader :image, WorkImageUploader
+
+  scope :published, -> { where(published: true) }
+
   def self.destroy_not_included_repos!(repositories)
     works = where.not(repository_id: repositories.map(&:id))
     works.destroy_all
