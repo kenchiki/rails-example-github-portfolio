@@ -24,6 +24,7 @@ group :development, :test do
   gem 'hirb-unicode'
   gem 'rspec-rails', '~> 3.7'
   gem 'factory_bot_rails', '~> 4.11.1'
+  gem 'dotenv-rails'
 end
 
 group :development do
