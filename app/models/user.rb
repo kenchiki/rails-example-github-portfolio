@@ -38,6 +38,8 @@ class User < ApplicationRecord
   def self.build_profile_by_auth(user, auth)
     profile = user.build_profile
     profile.name = auth.info.name
+    profile.pr = auth.extra.raw_info.bio
+    profile.remote_avatar_url = auth.info.image
   end
 
   def self.update_or_create_token(user, auth)

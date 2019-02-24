@@ -1,6 +1,10 @@
 %h1= "作者：#{@user.name}"
 
-.mt-5= simple_format(@user.pr)
+.profile.mt-5
+  .profile__thumb
+    = image_tag @user.avatar.thumb.url if @user.avatar?
+    = image_tag 'no_image.png' unless @user.avatar?
+  .profile__pr= simple_format(@user.pr)
 
 %ul.works
   = render @user.published_works
