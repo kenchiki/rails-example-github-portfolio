@@ -2,7 +2,7 @@
 %html
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
-    %title RailsExamplePortfolio
+    %title GitHubハブ
     = csrf_meta_tags
     = csp_meta_tag
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
@@ -11,7 +11,7 @@
     #wrapper
       %header#header
         #header-logo
-          = link_to 'GitHubフォリオ', root_path
+          = link_to 'GitHubハブ', root_path
         %ul#header-nav
           - if user_signed_in?
             %li= link_to '作品一覧', auth_works_path
