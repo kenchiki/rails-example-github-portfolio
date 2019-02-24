@@ -1,0 +1,8 @@
+- unless flash.empty?
+  #flash
+    - if notice
+      .alert.alert-success{role: 'alert','data-test': 'flash__success'}
+        = notice
+    - if alert
+      .alert.alert-danger{role: 'alert','data-test': 'flash__failure'}
+        = alert
