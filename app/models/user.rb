@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  devise :database_authenticatable, :rememberable,
+  devise :database_authenticatable, :registerable, :rememberable,
          :validatable, :omniauthable, omniauth_providers: %i[github]
 
   has_one :profile, dependent: :destroy
@@ -24,8 +24,7 @@ class User < ApplicationRecord
     end
   end
 
-
-  def self.from_omniauth(auth)
+  def self.find_or_create_user(auth)
     user = where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email
       user.password = Devise.friendly_token[0, 20]

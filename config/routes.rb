@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root 'users#index'
 
-  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
+  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks', registrations: 'users/registrations' }
 
   namespace :auth do
     resource :profile, only: %i[edit update]
