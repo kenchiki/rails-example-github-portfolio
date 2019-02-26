@@ -4,6 +4,7 @@ class User < ApplicationRecord
 
   has_one :profile, dependent: :destroy
   has_one :omni_auth_token, dependent: :destroy
+  # scopeは集合を絞り込むのだけに使うという考え方もある
   has_many :works, -> { order(id: :asc) }, dependent: :destroy
 
   delegate :token, to: :omni_auth_token

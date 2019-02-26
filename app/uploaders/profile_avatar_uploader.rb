@@ -16,6 +16,8 @@ class ProfileAvatarUploader < CarrierWave::Uploader::Base
   end
 
   def filename
+    # ランダムな名前でなくても固定名で十分かも
+    # "image.#{file.extension}" if original_filename.present?
     "#{secure_token}.#{file.extension}" if original_filename.present?
   end
 

@@ -11,6 +11,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     end
   end
 
+  # 呼ばれるタイミングは？
   def failure
     redirect_to root_path
   end

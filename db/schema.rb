@@ -15,6 +15,7 @@ ActiveRecord::Schema.define(version: 2019_02_24_052829) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  # userと1対1であれば、userと同じでもいいかも。実用上はまとめておいてもいいかも
   create_table "omni_auth_tokens", force: :cascade do |t|
     t.string "token"
     t.bigint "user_id", null: false
@@ -23,10 +24,12 @@ ActiveRecord::Schema.define(version: 2019_02_24_052829) do
     t.index ["user_id"], name: "index_omni_auth_tokens_on_user_id"
   end
 
+  # has_oneだと面倒くさいことも出てくるので、必要性があるを考える
   create_table "profiles", force: :cascade do |t|
     t.string "name"
     t.string "avatar"
     t.text "pr"
+    # ユーザーとは1対1だから、ユニーク制約を付けておいてもいいかも
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -41,8 +44,10 @@ ActiveRecord::Schema.define(version: 2019_02_24_052829) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    # GitHubだけのサービスという前提であれば、provider, uidのユニーク制約は必ずしも必須ではないかも
     t.string "provider"
     t.string "uid"
+    # tokenだけが別テーブルが切り出されているだけなら、usersテーブルでもいいかも。
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

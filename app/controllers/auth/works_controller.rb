@@ -1,19 +1,17 @@
 class Auth::WorksController < ApplicationController
+  # %i表記で統一したほうがよさそう
   before_action :set_work, only: [:show, :edit, :update]
 
   def index
+    # orderはmodel側で付けている。またorder付け忘れ防止gemもあったりする。
     @works = current_user.works
   end
 
+  # 使ってないので削除したほうがよい。before_actionのしても消せる。
   def show
   end
 
   def edit
-  end
-
-  def import
-    current_user.import_works_from_github
-    redirect_to auth_works_path, notice: 'GitHubのリポジトリを読み込みました。'
   end
 
   def update
@@ -22,6 +20,12 @@ class Auth::WorksController < ApplicationController
     else
       render :edit
     end
+  end
+
+  # scaffoldでつくられるメソッドの後のほうが読みやすいかも
+  def import
+    current_user.import_works_from_github
+    redirect_to auth_works_path, notice: 'GitHubのリポジトリを読み込みました。'
   end
 
   private
