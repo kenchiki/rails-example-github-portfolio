@@ -1,9 +1,13 @@
+- unless user_signed_in?
+  %p GitHubのアカウントがあればポートフォリオサイトが簡単に作れます。
+  %p.mt-5.mb-5= link_to 'ご利用はこちら', new_user_session_path, class: 'btn btn-primary'
+
 - if @users.present?
   %h1 登録ユーザー一覧
   %ul.users
     = render @users
 
 - if @works.present?
-  %h2.mt-5 作品一覧
+  %h2.mt-5 登録作品一覧
   %ul.works
     = render @works
