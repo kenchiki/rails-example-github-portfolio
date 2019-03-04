@@ -2,7 +2,7 @@
 
 .profile.mt-5
   .profile__thumb
-    = image_tag @user.avatar.thumb.url if @user.avatar?
+    = image_tag @user.avatar.url if @user.avatar?
     = image_tag 'no_image.png' unless @user.avatar?
   .profile__pr= simple_format(@user.pr)
 

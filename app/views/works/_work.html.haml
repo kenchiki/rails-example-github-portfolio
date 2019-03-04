@@ -7,4 +7,6 @@
     = link_to work.svn_url do
       %p.strong= work.name
     %p.badge.badge-info= work.language if work.language?
+    %p.badge.badge-warning= "★ #{work.stargazers}"
+    %p= "作者：#{work.profile_name}"
     %p= work.description if work.description?

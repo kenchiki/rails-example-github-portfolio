@@ -12,6 +12,7 @@ class CreateWorks < ActiveRecord::Migration[5.2]
       t.integer :watchers, null: false
       t.references :user, foreign_key: true, null: false
       t.boolean :published, null: false, default: true
+      t.datetime :pushed_at, null: false
 
       t.timestamps
     end
