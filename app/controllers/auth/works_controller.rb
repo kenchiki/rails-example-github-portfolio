@@ -1,19 +1,11 @@
 class Auth::WorksController < ApplicationController
-  before_action :set_work, only: [:show, :edit, :update]
+  before_action :set_work, only: %i[edit update]
 
   def index
-    @works = current_user.works
-  end
-
-  def show
+    @works = current_user.works.order(id: :desc)
   end
 
   def edit
-  end
-
-  def import
-    current_user.import_works_from_github
-    redirect_to auth_works_path, notice: 'GitHubのリポジトリを読み込みました。'
   end
 
   def update
@@ -22,6 +14,11 @@ class Auth::WorksController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def import
+    current_user.import_works_from_github
+    redirect_to auth_works_path, notice: 'GitHubのリポジトリを読み込みました。'
   end
 
   private

@@ -1,16 +1,15 @@
 class UsersController < ApplicationController
   skip_before_action :authenticate_user!
-  before_action :set_user, only: %i[show]
+
+  USERS_LIMIT = 24
+  WORKS_LIMIT = 24
 
   def index
-    @users = User.order(id: :asc).limit(24)
-    @works = Work.order(id: :asc).published.limit(24)
+    @users = User.order(id: :desc).limit(USERS_LIMIT)
+    @works = Work.published.order(id: :desc).limit(WORKS_LIMIT)
   end
 
   def show
-  end
-
-  def set_user
     @user = User.find(params[:id])
   end
 end

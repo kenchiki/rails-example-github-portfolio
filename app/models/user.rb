@@ -4,15 +4,12 @@ class User < ApplicationRecord
 
   has_one :profile, dependent: :destroy
   has_one :omni_auth_token, dependent: :destroy
-  has_many :works, -> { order(id: :asc) }, dependent: :destroy
+  has_many :works, dependent: :destroy
+  has_many :published_works, -> { merge(Work.published) }, class_name: 'Work'
 
   delegate :token, to: :omni_auth_token
   delegate :repositories, to: :github_account
   delegate :name, :pr, :pr?, :avatar, :avatar?, to: :profile
-
-  def published_works
-    works.published
-  end
 
   def import_works_from_github
     Work.transaction do
