@@ -15,14 +15,6 @@ ActiveRecord::Schema.define(version: 2019_02_24_052829) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "omni_auth_tokens", force: :cascade do |t|
-    t.string "token"
-    t.bigint "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_omni_auth_tokens_on_user_id"
-  end
-
   create_table "profiles", force: :cascade do |t|
     t.string "name"
     t.string "avatar"
@@ -41,8 +33,9 @@ ActiveRecord::Schema.define(version: 2019_02_24_052829) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "provider"
-    t.string "uid"
+    t.string "provider", null: false
+    t.string "uid", null: false
+    t.string "access_token", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -59,13 +52,13 @@ ActiveRecord::Schema.define(version: 2019_02_24_052829) do
     t.integer "watchers", null: false
     t.bigint "user_id", null: false
     t.boolean "published", default: true, null: false
+    t.datetime "pushed_at", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["repository_id"], name: "index_works_on_repository_id", unique: true
     t.index ["user_id"], name: "index_works_on_user_id"
   end
 
-  add_foreign_key "omni_auth_tokens", "users"
   add_foreign_key "profiles", "users"
   add_foreign_key "works", "users"
 end

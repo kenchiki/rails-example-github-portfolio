@@ -2,7 +2,7 @@ class GithubAccount
   MAX_FETCH_REPOS = 100
 
   def initialize(user)
-    @client = Octokit::Client.new(access_token: user.token)
+    @client = Octokit::Client.new(access_token: user.access_token)
   end
 
   def repositories

@@ -2,6 +2,8 @@ class Work < ApplicationRecord
   belongs_to :user
 
   mount_uploader :image, WorkImageUploader
+  delegate :profile, to: :user
+  delegate :name, to: :profile, prefix: true
 
   scope :published, -> { where(published: true) }
 
@@ -17,6 +19,7 @@ class Work < ApplicationRecord
                       svn_url: repository.svn_url,
                       stargazers: repository.stargazers_count,
                       forks: repository.forks_count,
+                      pushed_at: repository.pushed_at,
                       watchers: repository.watchers)
     save!
   end

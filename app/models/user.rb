@@ -3,13 +3,38 @@ class User < ApplicationRecord
          :validatable, :omniauthable, omniauth_providers: %i[github]
 
   has_one :profile, dependent: :destroy
-  has_one :omni_auth_token, dependent: :destroy
   has_many :works, dependent: :destroy
   has_many :published_works, -> { merge(Work.published) }, class_name: 'Work'
 
-  delegate :token, to: :omni_auth_token
   delegate :repositories, to: :github_account
   delegate :name, :pr, :pr?, :avatar, :avatar?, to: :profile
+
+  def self.find_or_create_user(auth)
+    user = find_by(provider: auth.provider, uid: auth.uid) || build_user_by_auth(auth)
+    user.assign_attributes(access_token: auth.dig(:credentials, :token))
+    user.save!
+    user
+  end
+
+  def self.build_user_by_auth(auth)
+    User.new.tap do |user|
+      user.email = auth.info.email
+      user.password = Devise.friendly_token[0, 20]
+      user.provider = auth.provider
+      user.uid = auth.uid
+      user.access_token = auth.dig(:credentials, :token)
+      build_profile_by_auth(user, auth)
+    end
+  end
+
+  def self.build_profile_by_auth(user, auth)
+    profile = user.build_profile
+    profile.name = auth.info.name
+    profile.pr = auth.extra.raw_info.bio
+    profile.remote_avatar_url = auth.info.image
+  end
+
+  private_class_method :build_user_by_auth, :build_profile_by_auth
 
   def import_works_from_github
     Work.transaction do
@@ -20,30 +45,6 @@ class User < ApplicationRecord
       end
     end
   end
-
-  def self.find_or_create_user(auth)
-    user = where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-      user.email = auth.info.email
-      user.password = Devise.friendly_token[0, 20]
-      build_profile_by_auth(user, auth)
-    end
-    update_or_create_token(user, auth)
-    user
-  end
-
-  def self.build_profile_by_auth(user, auth)
-    profile = user.build_profile
-    profile.name = auth.info.name
-    profile.pr = auth.extra.raw_info.bio
-    profile.remote_avatar_url = auth.info.image
-  end
-
-  def self.update_or_create_token(user, auth)
-    user.omni_auth_token&.destroy!
-    user.create_omni_auth_token(token: auth.dig(:credentials, :token))
-  end
-
-  private_class_method :build_profile_by_auth, :update_or_create_token
 
   private
 
