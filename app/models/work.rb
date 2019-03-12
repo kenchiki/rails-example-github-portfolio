@@ -9,11 +9,13 @@ class Work < ApplicationRecord
 
   def self.destroy_not_included_repos!(repositories)
     works = where.not(repository_id: repositories.map(&:id))
+    # delete_allだとSQLが1つですむので、そちらでもよいかもしれない
     works.destroy_all
     raise '作品を削除できませんでした。' unless works.all?(&:destroyed?)
   end
 
   def update_or_create_by_repository(repository)
+    # nameとdescriptionがnew_recordのときのみ処理する意図がコードから読み取りにくいため、コメントがあるとよい
     assign_attributes(name: repository.name, description: repository.description) if new_record?
     assign_attributes(language: repository.language,
                       svn_url: repository.svn_url,
