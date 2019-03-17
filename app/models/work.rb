@@ -13,7 +13,8 @@ class Work < ApplicationRecord
     raise '作品を削除できませんでした。' unless works.all?(&:destroyed?)
   end
 
-  def update_or_create_by_repository(repository)
+  def assign_attributes_by_repos(repository)
+    # 初めてgithubリポジトリを取得する時のみリポジトリ名や説明文を反映する（あとでアプリ内で修正可能なため）
     assign_attributes(name: repository.name, description: repository.description) if new_record?
     assign_attributes(language: repository.language,
                       svn_url: repository.svn_url,
@@ -21,6 +22,5 @@ class Work < ApplicationRecord
                       forks: repository.forks_count,
                       pushed_at: repository.pushed_at,
                       watchers: repository.watchers)
-    save!
   end
 end

@@ -1,6 +1,6 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def github
-    @user = User.find_or_create_user(request.env["omniauth.auth"])
+    @user = User.find_or_create_user!(request.env["omniauth.auth"])
 
     if @user.persisted?
       sign_in_and_redirect @user, event: :authentication
