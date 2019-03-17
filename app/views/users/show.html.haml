@@ -7,4 +7,4 @@
   .profile__pr= simple_format(@user.pr)
 
 %ul.works
-  = render @user.published_works
+  = render @user.published_works.includes(:user)
