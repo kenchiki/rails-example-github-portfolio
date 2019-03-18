@@ -4,7 +4,7 @@ class User < ApplicationRecord
 
   has_one :profile, dependent: :destroy
   has_many :works, dependent: :destroy
-  has_many :published_works, -> { merge(Work.published) }, class_name: 'Work'
+  has_many :published_works, -> { published }, class_name: 'Work'
 
   delegate :name, :pr, :pr?, :avatar, :avatar?, to: :profile
 
